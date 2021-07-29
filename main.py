@@ -23,6 +23,19 @@ end_game = False
 
 while not end_game:
     if user_answer == "Exit":
+        # Generate a CSV file with all missing states
+        missing_states = [each_state for each_state in all_states.state if each_state not in correct_answer]
+        # for each_state in all_states.state:
+        #     if each_state in correct_answer:
+        #         pass
+        #     else:
+        #         missing_states.append(each_state)
+
+        df_missing_states = {
+            "state": missing_states,
+        }
+
+        pd.DataFrame(df_missing_states).to_csv("states_to_learn.csv")
         break
     else:
         for each_state in all_states.state:
@@ -45,18 +58,3 @@ while not end_game:
 
 # Screen exit
 screen.exitonclick()
-
-# Generate a CSV file with all missing states
-missing_states = []
-for each_state in all_states.state:
-    if each_state in correct_answer:
-        pass
-    else:
-        missing_states.append(each_state)
-
-df_missing_states = {
-    "state": missing_states,
-}
-
-pd.DataFrame(df_missing_states).to_csv("states_to_learn.csv")
-
